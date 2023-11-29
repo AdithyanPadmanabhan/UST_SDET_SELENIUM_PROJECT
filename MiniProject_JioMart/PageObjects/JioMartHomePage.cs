@@ -42,9 +42,14 @@ namespace MiniProject_JioMart.PageObjects
         [FindsBy(How = How.XPath, Using = "//button[@id='btn_sign_in']")]
         private IWebElement? SignIn { get; set; }
 
+        [FindsBy(How = How.XPath, Using = " //a[@id='nav_level3_8199']")]
+        private IWebElement? GroceryList { get; set; }
+
+       
 
 
-        
+
+
 
 
 
@@ -78,6 +83,11 @@ namespace MiniProject_JioMart.PageObjects
 
             return new SignIn(driver);
            
+        }
+
+        public void GrocerySelection()
+        {
+            GroceryList?.Click();
         }
 
 
