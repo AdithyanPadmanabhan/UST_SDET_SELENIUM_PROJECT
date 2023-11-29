@@ -112,7 +112,7 @@ namespace MiniProject_JioMart
             }
             else
             {
-                Log.Error($"Test failed for{testName}.\n Exception: \n{errorMessage}");
+                Log.Error($"Test failed for {testName}.\n Exception: \n{errorMessage}");
                 test.Fail(result);
             }
         }

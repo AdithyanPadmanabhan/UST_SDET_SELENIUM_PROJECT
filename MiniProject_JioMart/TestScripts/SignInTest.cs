@@ -11,18 +11,17 @@ using System.Threading.Tasks;
 
 namespace MiniProject_JioMart.TestScripts
 {
-    internal class FilterAndSearchTest :CoreCodes
+    internal class SignInTest :CoreCodes
     {
-
         [Test, Order(0)]
 
         [Category("Regression Testing")]
 
-        public void FilterSearchTest()
+        public void SignUpTest()
         {
 
             DefaultWait<IWebDriver> fluentWait = new DefaultWait<IWebDriver>(driver);
-            fluentWait.Timeout = TimeSpan.FromSeconds(10);
+            fluentWait.Timeout = TimeSpan.FromSeconds(20);
             fluentWait.PollingInterval = TimeSpan.FromMilliseconds(100);
             fluentWait.IgnoreExceptionTypes(typeof(NoSuchElementException));
             fluentWait.Message = "Product not found";
@@ -42,67 +41,48 @@ namespace MiniProject_JioMart.TestScripts
 
             foreach (var excelData in excelDataList)
             {
+                string? phoneNumber = excelData?.PhoneNumber;
+                string? firstName = excelData?.FirstName;
+                string? lastName = excelData?.LastName;
+                string? email = excelData?.Email;
 
+                var sigIn = fluentWait.Until(d => jhp.SignInClick());
 
-                string? product = excelData?.Product;
+                Thread.Sleep(5000);
 
-               
-
-
-
-
-                 var item = fluentWait.Until(d => jhp.CategorySelectionFunction());
-                Thread.Sleep(4000);
                 try
                 {
 
                     TakeScreenShot();
-                    Assert.That(driver.Url.Contains("electronics"));
-                    LogTestResult("Product Search Test ", "Product Search success");
+                    Assert.That(driver.Url.Contains("customer"));
+                    LogTestResult("Sign in Click ", "Sign in success");
 
 
                 }
                 catch (AssertionException ex)
                 {
 
-                    LogTestResult("Product Search  Test",
-                      "Product Search  failed", ex.Message);
+                    LogTestResult("Sign in Click",
+                      "Signin Click  failed", ex.Message);
                 }
 
-            var productSelect = fluentWait.Until(d => item.ProductSelectionFunction());
-                try
-                {
-
-                    TakeScreenShot();
-                    Assert.That(driver.Url.Contains("electronics"));
-                    LogTestResult("Category selection Test ", "Category selection success");
-
-
-                }
-                catch (AssertionException ex)
-                {
-
-                    LogTestResult("Category selection Test",
-                      "Category selection", ex.Message);
-                }
-
-                productSelect.ItemSelectionFunction();
+                sigIn.SignInFunction(phoneNumber, firstName, lastName, email);
                 Thread.Sleep(3000);
 
                 try
                 {
 
                     TakeScreenShot();
-                    Assert.That(driver.Url.Contains("add-to-cart"));
-                    LogTestResult("Product selection Test ", "Product selection success");
+                    Assert.That(driver.Url.Contains("customer"));
+                    LogTestResult("Sign in Test ", "Sign in success");
 
 
                 }
                 catch (AssertionException ex)
                 {
 
-                    LogTestResult("Product selection Test",
-                      "Product selection", ex.Message);
+                    LogTestResult("Sign in Test",
+                      "Signin Click  failed", ex.Message);
                 }
 
             }

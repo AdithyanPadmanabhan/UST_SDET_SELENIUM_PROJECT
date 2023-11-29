@@ -39,7 +39,12 @@ namespace MiniProject_JioMart.Utilities
                             {
                                
                                 Product = GetValueOrDefault(row,"product"),
-                                
+                                PinCode = GetValueOrDefault(row, "pincode"),
+                                PhoneNumber= GetValueOrDefault(row, "mobilenumber"),
+                                FirstName = GetValueOrDefault(row,"firstname"),
+                                LastName= GetValueOrDefault(row,"lastname"),
+                                Email= GetValueOrDefault(row,"email")
+
                             };
 
                             excelDataList.Add(excelData);

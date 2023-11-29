@@ -11,14 +11,14 @@ using System.Threading.Tasks;
 
 namespace MiniProject_JioMart.TestScripts
 {
-    internal class FilterAndSearchTest :CoreCodes
+    internal class DeliveryLocationTest:CoreCodes
     {
 
         [Test, Order(0)]
 
         [Category("Regression Testing")]
 
-        public void FilterSearchTest()
+        public void LocationTest()
         {
 
             DefaultWait<IWebDriver> fluentWait = new DefaultWait<IWebDriver>(driver);
@@ -45,67 +45,28 @@ namespace MiniProject_JioMart.TestScripts
 
 
                 string? product = excelData?.Product;
+                string? pinCode = excelData?.PinCode;
 
-               
-
-
-
-
-                 var item = fluentWait.Until(d => jhp.CategorySelectionFunction());
-                Thread.Sleep(4000);
+                jhp.LocationSelection(pinCode);
                 try
                 {
 
                     TakeScreenShot();
-                    Assert.That(driver.Url.Contains("electronics"));
-                    LogTestResult("Product Search Test ", "Product Search success");
+                    Assert.That(driver.Url.Contains("jiomart"));
+                    LogTestResult("Delivery Location Test ", "Delivery Location success");
 
 
                 }
                 catch (AssertionException ex)
                 {
 
-                    LogTestResult("Product Search  Test",
-                      "Product Search  failed", ex.Message);
-                }
-
-            var productSelect = fluentWait.Until(d => item.ProductSelectionFunction());
-                try
-                {
-
-                    TakeScreenShot();
-                    Assert.That(driver.Url.Contains("electronics"));
-                    LogTestResult("Category selection Test ", "Category selection success");
-
-
-                }
-                catch (AssertionException ex)
-                {
-
-                    LogTestResult("Category selection Test",
-                      "Category selection", ex.Message);
-                }
-
-                productSelect.ItemSelectionFunction();
-                Thread.Sleep(3000);
-
-                try
-                {
-
-                    TakeScreenShot();
-                    Assert.That(driver.Url.Contains("add-to-cart"));
-                    LogTestResult("Product selection Test ", "Product selection success");
-
-
-                }
-                catch (AssertionException ex)
-                {
-
-                    LogTestResult("Product selection Test",
-                      "Product selection", ex.Message);
+                    LogTestResult("Delivery Location  Test",
+                      "Delivery Location  failed", ex.Message);
                 }
 
             }
         }
-    }
-}
+
+
+            }
+        }

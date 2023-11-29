@@ -26,11 +26,25 @@ namespace MiniProject_JioMart.PageObjects
 
         [FindsBy(How = How.XPath, Using = "//a[@id=\"nav_link_4\" and text()='Electronics']")]
         private IWebElement? CategorySelection { get; set; }
+
         [FindsBy(How = How.XPath, Using = " //a[@id=\"nav_link_757\" and contains(text(),'Mobiles')]")]
         private IWebElement? SubCategorySelection { get; set; }
 
-        //a[@id="nav_link_757" and contains(text(),'Mobiles')]
+        [FindsBy(How = How.XPath, Using = "//button[@class='jm-btn primary small jm-border-none']")]
+        private IWebElement? Location { get; set; }
 
+        [FindsBy(How = How.Id, Using = "btn_enter_pincode")]
+        private IWebElement? PinCode { get; set; }
+
+        [FindsBy(How = How.Id, Using = "rel_pincode")]
+        private IWebElement? PinCodeInput { get; set; }
+
+        [FindsBy(How = How.XPath, Using = "//button[@id='btn_sign_in']")]
+        private IWebElement? SignIn { get; set; }
+
+
+
+        
 
 
 
@@ -48,6 +62,22 @@ namespace MiniProject_JioMart.PageObjects
 
             return new ElectronicsProductResultPage(driver);
           
+        }
+        public void LocationSelection(string pincode)
+        {
+            Location?.Click();
+            PinCode?.Click();
+            PinCodeInput?.SendKeys(pincode);
+            PinCodeInput?.SendKeys(Keys.Enter);
+
+        }
+
+        public SignIn SignInClick()
+        {
+            SignIn?.Click();
+
+            return new SignIn(driver);
+           
         }
 
 
