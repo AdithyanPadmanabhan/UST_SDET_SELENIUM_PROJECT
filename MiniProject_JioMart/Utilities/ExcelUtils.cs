@@ -43,7 +43,8 @@ namespace MiniProject_JioMart.Utilities
                                 PhoneNumber= GetValueOrDefault(row, "mobilenumber"),
                                 FirstName = GetValueOrDefault(row,"firstname"),
                                 LastName= GetValueOrDefault(row,"lastname"),
-                                Email= GetValueOrDefault(row,"email")
+                                Email= GetValueOrDefault(row,"email"),
+                                MultiProduct = GetValueOrDefault(row, "multipleproduct")
 
                             };
 

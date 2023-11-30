@@ -10,6 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Serilog;
+using OpenQA.Selenium.Support.UI;
 
 namespace MiniProject_JioMart
 {
@@ -99,7 +100,16 @@ namespace MiniProject_JioMart
             IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
             js.ExecuteScript("arguments[0].scrollIntoView(true)", element);
         }
+        public DefaultWait<IWebDriver> Waits(IWebDriver driver)
+        {
+            DefaultWait<IWebDriver> fluentWait = new DefaultWait<IWebDriver>(driver);
+            fluentWait.Timeout = TimeSpan.FromSeconds(40);
+            fluentWait.PollingInterval = TimeSpan.FromMilliseconds(100);
+            fluentWait.IgnoreExceptionTypes(typeof(NoSuchElementException));
+            fluentWait.Message = "Product not found";
 
+            return fluentWait;
+        }
         protected void LogTestResult(string testName,string result,string errorMessage = null)
         {
             Log.Information(result);

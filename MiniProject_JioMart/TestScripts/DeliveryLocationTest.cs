@@ -16,16 +16,12 @@ namespace MiniProject_JioMart.TestScripts
 
         [Test, Order(0)]
 
-        [Category("Regression Testing")]
+        [Category("Smoke Testing")]
 
         public void LocationTest()
         {
 
-            DefaultWait<IWebDriver> fluentWait = new DefaultWait<IWebDriver>(driver);
-            fluentWait.Timeout = TimeSpan.FromSeconds(10);
-            fluentWait.PollingInterval = TimeSpan.FromMilliseconds(100);
-            fluentWait.IgnoreExceptionTypes(typeof(NoSuchElementException));
-            fluentWait.Message = "Product not found";
+            var fluentWait = Waits(driver);
 
 
             string? currDir = Directory.GetParent(@"../../../")?.FullName;
@@ -46,7 +42,7 @@ namespace MiniProject_JioMart.TestScripts
 
                 string? product = excelData?.Product;
                 string? pinCode = excelData?.PinCode;
-
+                fluentWait.Until(d => jhp);
                 jhp.LocationSelection(pinCode);
                 try
                 {

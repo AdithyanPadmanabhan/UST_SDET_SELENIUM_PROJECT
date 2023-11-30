@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SeleniumExtras.WaitHelpers;
 
 namespace MiniProject_JioMart.TestScripts
 {
@@ -20,11 +21,12 @@ namespace MiniProject_JioMart.TestScripts
         public void SignUpTest()
         {
 
-            DefaultWait<IWebDriver> fluentWait = new DefaultWait<IWebDriver>(driver);
-            fluentWait.Timeout = TimeSpan.FromSeconds(20);
-            fluentWait.PollingInterval = TimeSpan.FromMilliseconds(100);
-            fluentWait.IgnoreExceptionTypes(typeof(NoSuchElementException));
-            fluentWait.Message = "Product not found";
+            /* DefaultWait<IWebDriver> fluentWait = new DefaultWait<IWebDriver>(driver);
+             fluentWait.Timeout = TimeSpan.FromSeconds(20);
+             fluentWait.PollingInterval = TimeSpan.FromMilliseconds(100);
+             fluentWait.IgnoreExceptionTypes(typeof(NoSuchElementException));
+             fluentWait.Message = "Product not found";*/
+            var fluentWait = Waits(driver);
 
 
             string? currDir = Directory.GetParent(@"../../../")?.FullName;
@@ -48,7 +50,7 @@ namespace MiniProject_JioMart.TestScripts
 
                 var sigIn = fluentWait.Until(d => jhp.SignInClick());
 
-                Thread.Sleep(5000);
+               // Thread.Sleep(5000);
 
                 try
                 {
@@ -66,8 +68,12 @@ namespace MiniProject_JioMart.TestScripts
                       "Signin Click  failed", ex.Message);
                 }
 
+                
+                fluentWait.Until(d => sigIn);
+                fluentWait.Until(ExpectedConditions.ElementIsVisible(
+                  By.XPath("//input[@id='loginfirst_mobileno' and @name='undefined']")));
                 sigIn.SignInFunction(phoneNumber, firstName, lastName, email);
-                Thread.Sleep(3000);
+              //  Thread.Sleep(3000);
 
                 try
                 {

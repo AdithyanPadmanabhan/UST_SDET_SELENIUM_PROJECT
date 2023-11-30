@@ -21,12 +21,14 @@ namespace MiniProject_JioMart.TestScripts
         public void FilterSearchTest()
         {
 
-            DefaultWait<IWebDriver> fluentWait = new DefaultWait<IWebDriver>(driver);
+           /* DefaultWait<IWebDriver> fluentWait = new DefaultWait<IWebDriver>(driver);
             fluentWait.Timeout = TimeSpan.FromSeconds(10);
             fluentWait.PollingInterval = TimeSpan.FromMilliseconds(100);
             fluentWait.IgnoreExceptionTypes(typeof(NoSuchElementException));
-            fluentWait.Message = "Product not found";
+            fluentWait.Message = "Product not found";*/
 
+            var fluentWait = Waits(driver);
+            
 
             string? currDir = Directory.GetParent(@"../../../")?.FullName;
             string filePath = currDir + "/Logs/log_" + DateTime.Now.ToString("yyyy-mm-dd_HH.mm.ss") + ".txt";
@@ -52,7 +54,7 @@ namespace MiniProject_JioMart.TestScripts
 
 
                  var item = fluentWait.Until(d => jhp.CategorySelectionFunction());
-                Thread.Sleep(4000);
+            //    Thread.Sleep(4000);
                 try
                 {
 
@@ -86,14 +88,15 @@ namespace MiniProject_JioMart.TestScripts
                       "Category selection", ex.Message);
                 }
 
+                fluentWait.Until(d => productSelect);
                 productSelect.ItemSelectionFunction();
-                Thread.Sleep(3000);
+               // Thread.Sleep(3000);
 
                 try
                 {
 
                     TakeScreenShot();
-                    Assert.That(driver.Url.Contains("add-to-cart"));
+                    Assert.That(driver.Url.Contains("electronics"));
                     LogTestResult("Product selection Test ", "Product selection success");
 
 

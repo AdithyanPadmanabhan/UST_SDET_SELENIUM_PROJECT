@@ -13,6 +13,7 @@ using System.Text;
 using System.Threading.Tasks;
 using MiniProject_JioMart.Utilities;
 using OpenQA.Selenium.Support.UI;
+using SeleniumExtras.WaitHelpers;
 
 namespace MiniProject_JioMart.TestScripts
 {
@@ -27,11 +28,12 @@ namespace MiniProject_JioMart.TestScripts
         public void SearchProductTest()
         {
 
-            DefaultWait<IWebDriver> fluentWait = new DefaultWait<IWebDriver>(driver);
-            fluentWait.Timeout = TimeSpan.FromSeconds(10);
-            fluentWait.PollingInterval = TimeSpan.FromMilliseconds(100);
-            fluentWait.IgnoreExceptionTypes(typeof(NoSuchElementException));
-            fluentWait.Message = "Product not found";
+            /* DefaultWait<IWebDriver> fluentWait = new DefaultWait<IWebDriver>(driver);
+             fluentWait.Timeout = TimeSpan.FromSeconds(10);
+             fluentWait.PollingInterval = TimeSpan.FromMilliseconds(100);
+             fluentWait.IgnoreExceptionTypes(typeof(NoSuchElementException));
+             fluentWait.Message = "Product not found";*/
+            var fluentWait = Waits(driver);
 
 
             string? currDir = Directory.GetParent(@"../../../")?.FullName;
@@ -76,7 +78,9 @@ namespace MiniProject_JioMart.TestScripts
                 }
 
                 var productPage= fluentWait.Until(d => item.ItemSelectionFunction());
-                Thread.Sleep(5000);
+
+             
+               // Thread.Sleep(5000);
 
                 try
                 {
@@ -95,7 +99,9 @@ namespace MiniProject_JioMart.TestScripts
                 }
 
                 var addToCart= fluentWait.Until(d => productPage.AddToCartFunction());
-               Thread.Sleep(5000);
+               
+                
+             //  Thread.Sleep(5000);
 
                 try
                 {
@@ -115,9 +121,12 @@ namespace MiniProject_JioMart.TestScripts
                       "Add to cart  failed", ex.Message);
                 }
 
+                fluentWait.Until(d => addToCart);
 
+                fluentWait.Until(ExpectedConditions.ElementIsVisible(
+                   By.XPath("(//div[contains(text(),' Place Order ')])[1]")));
                 addToCart.PlaceorderFunction();
-                Thread.Sleep(5000);
+             
                 try
                 {
 

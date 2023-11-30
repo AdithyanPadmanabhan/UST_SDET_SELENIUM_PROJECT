@@ -15,6 +15,8 @@ namespace MiniProject_JioMart.Utilities
         public string? FirstName { get; set; }
         public string? LastName { get; set;}
         public string? Email { get; set; }
+
+        public string? MultiProduct {  get; set; }
        
 
     }

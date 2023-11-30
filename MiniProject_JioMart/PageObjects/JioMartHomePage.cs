@@ -45,12 +45,27 @@ namespace MiniProject_JioMart.PageObjects
         [FindsBy(How = How.XPath, Using = " //a[@id='nav_level3_8199']")]
         private IWebElement? GroceryList { get; set; }
 
-       
+        [FindsBy(How = How.XPath, Using = "//button[@id='btn_ham_menu']")]
+        private IWebElement? OfferButton { get; set; }
+
+        [FindsBy(How = How.XPath, Using = " //a[@class='d-flex' and @href='/offers']")]
+        private IWebElement? OfferStore { get; set; }
+
+
+        [FindsBy(How = How.Id, Using = "btn_search_list")]
+        private IWebElement? MultiSearch { get; set; }
 
 
 
+        [FindsBy(How = How.Id, Using = "rel_search_val")]
+        private IWebElement? MultiSearchInput { get; set; }
 
 
+       // (//button[@type='submit'])[1]
+
+
+        [FindsBy(How = How.XPath, Using = "//button[normalize-space()='Search All']")]
+        private IWebElement? MultiSearchButton { get; set; }
 
 
         public SearchResultPage SearchProduct(string product)
@@ -88,6 +103,26 @@ namespace MiniProject_JioMart.PageObjects
         public void GrocerySelection()
         {
             GroceryList?.Click();
+        }
+
+        public OfferPage OfferFunction()
+        {
+            OfferButton?.Click();
+
+            OfferStore?.Click();
+
+            return new OfferPage(driver);
+        }
+
+        public void MultiSearchFunction(string multiProduct)
+        {
+            MultiSearch?.Click();
+
+            MultiSearchInput?.SendKeys(multiProduct);
+          
+            MultiSearchButton?.Click();
+          
+
         }
 
 
