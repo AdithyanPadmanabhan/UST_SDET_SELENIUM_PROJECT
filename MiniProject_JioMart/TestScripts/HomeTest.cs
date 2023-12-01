@@ -223,7 +223,7 @@ namespace MiniProject_JioMart.TestScripts
 
 
 
-        [Test, Order(4)]
+        [Test, Order(5)]
         [Category("SmokeTest")]
 
 
@@ -258,24 +258,103 @@ namespace MiniProject_JioMart.TestScripts
                 fluentWait.Until(d => jhp);
                 jhp.MultiSearchFunction(multiProduct);
 
-               /* try
-                {
-                    Assert.That(Errormsg, Does.Contain("Sorry"));
-
-
-                    LogTestResult("  Invalid search Test ", "Invalid search Test success");
-
-                }
-                catch (AssertionException ex)
-                {
-
-                    LogTestResult("Invalid search Test",
-                      "Invalid search Test", ex.Message);
-
-
-                }*/
+              
             }
         }
 
+        [Test, Order(6)]
+        [Category("SmokeTest")]
+        public void LogoTest()
+        {
+            if (!driver.Url.Equals("https://www.jiomart.com/"))
+            {
+                driver.Navigate().GoToUrl("https://www.jiomart.com/");
+
+            }
+            var fluentWait = Waits(driver);
+            string? currDir = Directory.GetParent(@"../../../")?.FullName;
+            string filePath = currDir + "/Logs/log_" + DateTime.Now.ToString("yyyy-mm-dd_HH.mm.ss") + ".txt";
+            Log.Logger = new LoggerConfiguration()
+               .WriteTo.Console()
+               .WriteTo.File(filePath, rollingInterval: RollingInterval.Day).CreateLogger();
+            JioMartHomePage jhp = new(driver);
+            jhp.LogoButtonFunction();
+            try
+            {
+                Assert.That(driver.Url.Contains("jiomart"));
+                LogTestResult("  Logo Test ", " Logo Test success");
+
+            }
+            catch (AssertionException ex)
+            {
+
+                LogTestResult(" Logo Test",
+                  " Logo Test", ex.Message);
+
+
+            }
+
+
+        }
+        [Test, Order(7)]
+        [Category("SmokeTest")]
+        public void CheckAllLinksStatusTest()
+        {
+
+            if (!driver.Url.Equals("https://www.jiomart.com/"))
+            {
+                driver.Navigate().GoToUrl("https://www.jiomart.com/");
+
+            }
+            var fluentWait = Waits(driver);
+            string? currDir = Directory.GetParent(@"../../../")?.FullName;
+            string filePath = currDir + "/Logs/log_" + DateTime.Now.ToString("yyyy-mm-dd_HH.mm.ss") + ".txt";
+            Log.Logger = new LoggerConfiguration()
+               .WriteTo.Console()
+               .WriteTo.File(filePath, rollingInterval: RollingInterval.Day).CreateLogger();
+            List<IWebElement> allLinks = driver.FindElements(By.TagName("a")).ToList();
+
+            try
+
+            {
+                foreach (var link in allLinks)
+                {
+                    string url = link.GetAttribute("href");
+
+                    if (url == null)
+                    {
+
+
+                        Log.Information("URL is null");
+
+                        continue;
+                    }
+                    else
+                    {
+                        bool isWorking = CheckLinkStatus(url);
+
+                        if (isWorking)
+                            Log.Information(url + "  is working");
+                        else
+                            Log.Information(url + "  is not working");
+                    }
+                }
+
+                LogTestResult("  All link Test ", "All link success");
+            }
+
+            catch (AssertionException ex)
+            {
+
+                LogTestResult(" All link",
+                  " All link", ex.Message);
+
+
+            }
+
+
+        }
     }
-}
+    }
+
+

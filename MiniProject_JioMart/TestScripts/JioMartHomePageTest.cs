@@ -67,6 +67,7 @@ namespace MiniProject_JioMart.TestScripts
                     TakeScreenShot();
                     Assert.That(driver.Url.Contains("search"));
                     LogTestResult("Product Search Test ", "Product Search success");
+                    test = extent.CreateTest("Product Search Test - Pass");
 
 
                 }
@@ -88,7 +89,8 @@ namespace MiniProject_JioMart.TestScripts
                     TakeScreenShot();
                     Assert.That(driver.Url.Contains("electronics"));
                     LogTestResult("Product List Test ", "Product List success");
-
+                    test = extent.CreateTest("Product List Test - Pass");
+                    test.Pass("Product List  success");
 
                 }
                 catch (AssertionException ex)
@@ -96,6 +98,7 @@ namespace MiniProject_JioMart.TestScripts
 
                     LogTestResult("Product List  Test",
                       "Product List  failed", ex.Message);
+                    test.Fail("Product List   failed");
                 }
 
                 var addToCart= fluentWait.Until(d => productPage.AddToCartFunction());
@@ -111,6 +114,8 @@ namespace MiniProject_JioMart.TestScripts
                     Assert.That(driver.Url.Contains("checkout"));
                     
                     LogTestResult("Add to cart  Test ", "Add to cart success");
+                    test = extent.CreateTest("Add to cart  Test - Pass");
+                    test.Pass("Add to cart  Test List  success");
 
 
                 }
@@ -119,6 +124,7 @@ namespace MiniProject_JioMart.TestScripts
 
                     LogTestResult("Add to cart  Test",
                       "Add to cart  failed", ex.Message);
+                    test.Fail("Add to cart    failed");
                 }
 
                 fluentWait.Until(d => addToCart);
@@ -135,6 +141,8 @@ namespace MiniProject_JioMart.TestScripts
                     Assert.That(driver.Url.Contains("customer"));
 
                     LogTestResult("Place order  Test ", "Place order success");
+                    test = extent.CreateTest("Place order  Test - Pass");
+                    test.Pass("Place order  Test List  success");
 
 
                 }
@@ -143,6 +151,9 @@ namespace MiniProject_JioMart.TestScripts
 
                     LogTestResult("Place order",
                       "Place order  failed", ex.Message);
+                    test.Fail("Place order    failed");
+
+
                 }
 
             }

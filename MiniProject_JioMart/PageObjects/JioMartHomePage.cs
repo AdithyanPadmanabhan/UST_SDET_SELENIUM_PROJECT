@@ -67,6 +67,9 @@ namespace MiniProject_JioMart.PageObjects
         [FindsBy(How = How.XPath, Using = "//button[normalize-space()='Search All']")]
         private IWebElement? MultiSearchButton { get; set; }
 
+        [FindsBy(How = How.XPath, Using = "//img[@alt='JioMart']")]
+        private IWebElement? LogoButton { get; set; }
+
 
         public SearchResultPage SearchProduct(string product)
          {
@@ -123,6 +126,11 @@ namespace MiniProject_JioMart.PageObjects
             MultiSearchButton?.Click();
           
 
+        }
+
+        public void LogoButtonFunction()
+        {
+            LogoButton?.Click();
         }
 
 
