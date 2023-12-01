@@ -50,7 +50,8 @@ namespace MiniProject_JioMart.TestScripts
                     TakeScreenShot();
                     Assert.That(driver.Url.Contains("jiomart"));
                     LogTestResult("Delivery Location Test ", "Delivery Location success");
-
+                   
+                    test = extent.CreateTest("Delivery Location Test - Pass");
 
                 }
                 catch (AssertionException ex)

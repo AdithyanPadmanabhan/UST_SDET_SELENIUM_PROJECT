@@ -98,7 +98,7 @@ namespace MiniProject_JioMart.TestScripts
                     TakeScreenShot();
                     Assert.That(driver.Url.Contains("electronics"));
                     LogTestResult("Product selection Test ", "Product selection success");
-
+                    test = extent.CreateTest("Product selection Test - Pass");
 
                 }
                 catch (AssertionException ex)
