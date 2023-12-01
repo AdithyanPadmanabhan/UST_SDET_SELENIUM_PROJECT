@@ -21,7 +21,7 @@ namespace MiniProject_JioMart.TestScripts
     internal class JioMartHomePageTest : CoreCodes
     {
 
-        [Test, Order(0)]
+        [Test, Order(1)]
        
         [Category("Regression Testing")]
        
@@ -155,6 +155,7 @@ namespace MiniProject_JioMart.TestScripts
 
 
                 }
+                Log.CloseAndFlush();
 
             }
 

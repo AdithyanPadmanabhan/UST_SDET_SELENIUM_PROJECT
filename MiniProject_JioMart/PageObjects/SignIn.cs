@@ -1,5 +1,6 @@
 ﻿using OpenQA.Selenium;
 using SeleniumExtras.PageObjects;
+using SeleniumExtras.WaitHelpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -46,7 +47,11 @@ namespace MiniProject_JioMart.PageObjects
             SignInInput?.SendKeys(number);
             SignInInput?.SendKeys(Keys.Enter);
 
-            Thread.Sleep(3000);
+          var wait =  CoreCodes.Waits(driver);
+            wait.Until(ExpectedConditions.ElementIsVisible(
+                   By.XPath("//input[@id='fname_input']")));
+
+            // Thread.Sleep(3000);
             FirstNameInput?.SendKeys(firstname);
             LastNameInput?.SendKeys(lastname);
             EmailInput?.SendKeys(email);
