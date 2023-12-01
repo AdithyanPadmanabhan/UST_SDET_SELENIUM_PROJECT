@@ -127,7 +127,7 @@ namespace MiniProject_JioMart.TestScripts
                     test.Fail("Add to cart    failed");
                 }
 
-                fluentWait.Until(d => addToCart);
+              //  fluentWait.Until(d => addToCart);
 
                 fluentWait.Until(ExpectedConditions.ElementIsVisible(
                    By.XPath("(//div[contains(text(),' Place Order ')])[1]")));

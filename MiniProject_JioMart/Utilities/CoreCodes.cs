@@ -100,7 +100,7 @@ namespace MiniProject_JioMart
             IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
             js.ExecuteScript("arguments[0].scrollIntoView(true)", element);
         }
-        public DefaultWait<IWebDriver> Waits(IWebDriver driver)
+        public static DefaultWait<IWebDriver> Waits(IWebDriver driver)
         {
             DefaultWait<IWebDriver> fluentWait = new DefaultWait<IWebDriver>(driver);
             fluentWait.Timeout = TimeSpan.FromSeconds(40);
