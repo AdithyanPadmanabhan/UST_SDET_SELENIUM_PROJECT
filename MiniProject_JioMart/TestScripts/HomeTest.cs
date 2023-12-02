@@ -56,7 +56,7 @@ namespace MiniProject_JioMart.TestScripts
                 TakeScreenShot();
                 Assert.That(driver.Url.Contains("groceries"));
                 LogTestResult(" Groceries Search Test ", "Groceries Search success");
-
+                test = extent.CreateTest("Groceries Search Test - Pass");
 
             }
             catch (AssertionException ex)
@@ -98,7 +98,7 @@ namespace MiniProject_JioMart.TestScripts
                 TakeScreenShot();
                 Assert.That(driver.Url.Contains("jiomart"));
                 LogTestResult(" Offer button Test ", "Offer button success");
-
+                test = extent.CreateTest(" Offer button Test - Pass");
 
             }
             catch (AssertionException ex)
@@ -121,7 +121,7 @@ namespace MiniProject_JioMart.TestScripts
                 TakeScreenShot();
                 Assert.That(driver.Url.Contains("offers"));
                 LogTestResult(" Offer store Test ", "Offer store success");
-
+                test = extent.CreateTest("Offer store Test - Pass");
 
             }
             catch (AssertionException ex)
@@ -162,7 +162,7 @@ namespace MiniProject_JioMart.TestScripts
 
                
                 LogTestResult(" Delivery Invalid Test ", "Delivery Invalid Test success");
-                
+                test = extent.CreateTest("Delivery Invalid Test - Pass");
             }
             catch (AssertionException ex)
             {
@@ -208,7 +208,7 @@ namespace MiniProject_JioMart.TestScripts
 
 
                 LogTestResult("  Invalid search Test ", "Invalid search Test success");
-
+                test = extent.CreateTest(" Invalid search Test - Pass");
             }
             catch (AssertionException ex)
             {
@@ -229,11 +229,7 @@ namespace MiniProject_JioMart.TestScripts
 
         public void MultipleProductSearchTest()
         {
-            if (!driver.Url.Equals("https://www.jiomart.com/"))
-            {
-                driver.Navigate().GoToUrl("https://www.jiomart.com/");
-
-            }
+           
             var fluentWait = Waits(driver);
             string? currDir = Directory.GetParent(@"../../../")?.FullName;
             string filePath = currDir + "/Logs/log_" + DateTime.Now.ToString("yyyy-mm-dd_HH.mm.ss") + ".txt";
@@ -258,7 +254,24 @@ namespace MiniProject_JioMart.TestScripts
                 fluentWait.Until(d => jhp);
                 jhp.MultiSearchFunction(multiProduct);
 
-              
+
+                try
+                {
+
+                    TakeScreenShot();
+                    Assert.That(driver.Url.Contains("search"));
+                    LogTestResult("Multiple Product Search ", "Multiple Product Search success");
+                    test = extent.CreateTest(" Multiple Product Search Test - Pass");
+
+                }
+                catch (AssertionException ex)
+                {
+
+                    LogTestResult("Multiple Product Search",
+                      "Multiple Product Searchfailed", ex.Message);
+                }
+
+               
             }
         }
 
@@ -283,7 +296,7 @@ namespace MiniProject_JioMart.TestScripts
             {
                 Assert.That(driver.Url.Contains("jiomart"));
                 LogTestResult("  Logo Test ", " Logo Test success");
-
+                test = extent.CreateTest(" Logo Test- Pass");
             }
             catch (AssertionException ex)
             {
@@ -341,6 +354,7 @@ namespace MiniProject_JioMart.TestScripts
                 }
 
                 LogTestResult("  All link Test ", "All link success");
+                test = extent.CreateTest("All link Test  - Pass");
             }
 
             catch (AssertionException ex)
